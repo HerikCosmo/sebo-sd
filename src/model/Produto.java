@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Produto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private String id;
     private String title;
@@ -10,7 +12,7 @@ public class Product implements Serializable {
     private String description;
     private String condition;
 
-    public Product(
+    public Produto(
             String id,
             String title,
             double price,
@@ -66,7 +68,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Produto{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", price=" + price +

@@ -1,35 +1,34 @@
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class AudioProduct extends Product implements Serializable {
+public class DVD extends Produto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
-    private String artist;
+    private String director;
     private int durationMinutes;
-    private String format;
 
-    public AudioProduct(
+    public DVD(
             String id,
             String title,
             double price,
             String description,
             String condition,
-            String artist,
-            int durationMinutes,
-            String format
+            String director,
+            int durationMinutes
     ) {
         super(id, title, price, description, condition);
-        this.artist = artist;
+        this.director = director;
         this.durationMinutes = durationMinutes;
-        this.format = format;
     }
 
-    public String getArtist() {
-        return artist;
+    public String getDirector() {
+        return director;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public int getDurationMinutes() {
@@ -40,21 +39,11 @@ public class AudioProduct extends Product implements Serializable {
         this.durationMinutes = durationMinutes;
     }
 
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
     @Override
     public String toString() {
-        return "AudioProduct{" +
-                super.toString() +
-                ", artist='" + artist + '\'' +
+        return "DVD{" +
+                "director='" + director + '\'' +
                 ", durationMinutes=" + durationMinutes +
-                ", format='" + format + '\'' +
                 '}';
     }
 }

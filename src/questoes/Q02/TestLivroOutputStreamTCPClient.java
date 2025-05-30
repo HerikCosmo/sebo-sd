@@ -1,26 +1,26 @@
-package tests;
+package questoes.Q02;
 
-import communication.BookOutputStream;
-import model.Book;
+import communication.LivroOutputStream;
+import model.Livro;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class TestBookOutputStreamTCPClient {
+public class TestLivroOutputStreamTCPClient {
     private static final String SERVER_ADRESS = "localhost";
     private static final int SERVER_PORT = 12345;
 
     public static void main(String[] args) {
-        Book[] books = {
-                new Book("B004", "The Lord of the Rings", 25.00, "Fantasy epic.", "Used - Excellent", "J.R.R. Tolkien", "978-0618260274", 1954, "Fantasy"),
-                new Book("B005", "Dune", 18.75, "Classic sci-fi.", "Used - Good", "Frank Herbert", "978-0441172719", 1965, "Science Fiction")
+        Livro[] livros = {
+                new Livro("4", "O Senhor dos Anéis", 25.00, "Fantasia Épica", "Usado", "J.R.R. Tolkien", "978-0618260274", 1954, "Fantasia"),
+                new Livro("5", "Duna", 18.75, "Sci-fi clássico.", "Usado", "Frank Herbert", "978-0441172719", 1965, "Ficção Científica")
         };
 
         try(
                 Socket socket = new Socket(SERVER_ADRESS, SERVER_PORT);
                 OutputStream os = socket.getOutputStream();
-                BookOutputStream bos = new BookOutputStream(books, 2, os)
+                LivroOutputStream bos = new LivroOutputStream(livros, 2, os)
         ) {
 
             System.out.println("Conectado ao servidor, enviando dados");

@@ -1,46 +1,47 @@
 package communication;
 
-import model.Book;
+import model.Livro;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-public class BookOutputStream extends OutputStream {
-    private final Book[] books;
+public class LivroOutputStream extends OutputStream {
+    private final Livro[] livros;
     private final int objectsQuantity;
     private final OutputStream outputStream;
-    private int currentBookIndex = 0;
+    private int currentLivroIndex = 0;
     private byte[] currentBookBytes = null;
     private int currentByteIndex = 0;
 
-    public BookOutputStream(Book[] books, int objectsQuantity, OutputStream outputStream) {
-        if (books == null || outputStream == null) {
+
+    public LivroOutputStream(Livro[] livros, int objectsQuantity, OutputStream outputStream) {
+        if (livros == null || outputStream == null) {
             throw new IllegalArgumentException("Array de livros e destino não podem ser nulos.");
         }
 
-        if(objectsQuantity < 0 || objectsQuantity > books.length) {
+        if(objectsQuantity < 0 || objectsQuantity > livros.length) {
             throw new IllegalArgumentException("Quantidade de objetos é inválido.");
         }
 
-        this.books = Arrays.copyOf(books, books.length);
+        this.livros = Arrays.copyOf(livros, livros.length);
         this.objectsQuantity = objectsQuantity;
         this.outputStream = outputStream;
     }
 
     @Override
     public void write(int b) throws IOException {
-        throw new UnsupportedOperationException("Não suportado");
+        throw new UnsupportedOperationException("Função Inválida");
     }
 
     public void writeNextBookData() throws IOException {
-        if (currentBookIndex < objectsQuantity) {
-            Book book = books[currentBookIndex];
+        if (currentLivroIndex < objectsQuantity) {
+            Livro livro = livros[currentLivroIndex];
             DataOutputStream dos = new DataOutputStream(outputStream);
 
-            byte[] idBytes = book.getId().getBytes("UTF-8");
-            byte[] titleBytes = book.getTitle().getBytes("UTF-8");
+            byte[] idBytes = livro.getId().getBytes("UTF-8");
+            byte[] titleBytes = livro.getTitle().getBytes("UTF-8");
 
             dos.writeInt(idBytes.length);
             dos.writeInt(titleBytes.length);
@@ -48,18 +49,18 @@ public class BookOutputStream extends OutputStream {
 
             dos.write(idBytes);
             dos.write(titleBytes);
-            dos.writeDouble(book.getPrice());
+            dos.writeDouble(livro.getPrice());
 
             dos.flush();
-            currentBookIndex++;
-            System.out.println("Livro Enviado: " + book.getTitle());
+            currentLivroIndex++;
+            System.out.println("Livro Enviado: " + livro);
         } else {
-            System.out.println("Não há mais dados para ler");
+            System.out.println("Não há dados para ler");
         }
     }
 
     public void writeAllBooks() throws IOException {
-        while(currentBookIndex < objectsQuantity) {
+        while(currentLivroIndex < objectsQuantity) {
             writeNextBookData();
         }
     }

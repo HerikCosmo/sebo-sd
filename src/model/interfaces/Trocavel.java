@@ -1,6 +1,6 @@
-package model;
+package model.interfaces;
 
-public interface Exchangable {
+public interface Trocavel {
     boolean canBeExchanged();
     String getExchangePolicy();
 }

@@ -1,30 +1,34 @@
-package model;
+package model.aggregation;
 
+import model.Produto;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Store implements Serializable{
+public class Loja implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
     private String name;
     private String address;
-    private List<Product> inventory;
+    private List<Produto> inventory;
 
-    public Store(String name, String address) {
+    public Loja(String name, String address) {
         this.name = name;
         this.address = address;
-        this.inventory = new ArrayList<Product>();
+        this.inventory = new ArrayList<Produto>();
     }
 
-    public void addProduct(Product product) {
-        this.inventory.add(product);
+    public void addProduct(Produto produto) {
+        this.inventory.add(produto);
     }
 
     public boolean removeProduct(String productId) {
         return inventory.removeIf(p -> p.getId().equals(productId));
     }
 
-    public Product findProductById(String productId) {
+    public Produto findProductById(String productId) {
         return inventory.stream()
                 .filter(p -> p.getId().equals(productId))
                 .findFirst()
@@ -47,17 +51,17 @@ public class Store implements Serializable{
         this.address = address;
     }
 
-    public List<Product> getInventory() {
+    public List<Produto> getInventory() {
         return inventory;
     }
 
-    public void setInventory(List<Product> inventory) {
+    public void setInventory(List<Produto> inventory) {
         this.inventory = inventory;
     }
 
     @Override
     public String toString() {
-        return "Store{" +
+        return "Loja{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", inventory=" + inventory +

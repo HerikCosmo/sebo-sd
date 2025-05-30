@@ -1,20 +1,18 @@
 package communication;
 
-import model.Book;
+import model.Livro;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BookInputStream extends InputStream {
+public class LivroInputStream extends InputStream {
     private final DataInputStream in;
-    private Book currentBook = null;
-    private int bytesReadForCurrentBook = 0;
 
-    public BookInputStream(InputStream source) {
+    public LivroInputStream(InputStream source) {
         if (source == null) {
-            throw new IllegalArgumentException("source is null");
+            throw new IllegalArgumentException("Source é nula");
         }
 
         this.in = new DataInputStream(source);
@@ -25,11 +23,15 @@ public class BookInputStream extends InputStream {
         throw new UnsupportedOperationException("Função Inválida");
     }
 
-    public Book readNextBook() throws IOException {
+    public Livro readNextLivro() throws IOException {
         try {
             int idLength = in.readInt();
             int titleLength = in.readInt();
             long priceSize = in.readLong();
+
+            if (priceSize != 8) {
+                System.err.println("Preço com tamanho de bytes inválido. Tem tamanho " + priceSize);
+            }
 
             byte[] idBytes = new byte[idLength];
             in.readFully(idBytes);
@@ -41,16 +43,16 @@ public class BookInputStream extends InputStream {
 
             double price = in.readDouble();
 
-            return new Book(id, title, price, "N/A", "N/A", "N/A", "N/A", 0, "N/A");
+            return new Livro(id, title, price, "N/A", "N/A", "N/A", "N/A", 0, "N/A");
         } catch (EOFException e) {
             return null;
         }
     }
 
-    public void readAllBooks() throws IOException {
-        Book book;
-        while((book = readNextBook()) != null) {
-            System.out.println("Livro recebido: " + book);
+    public void readAllLivros() throws IOException {
+        Livro livro;
+        while((livro = readNextLivro()) != null) {
+            System.out.println("Livro recebido: " + livro);
         }
     }
 

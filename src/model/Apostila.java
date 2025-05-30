@@ -1,14 +1,16 @@
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class CourseMaterial extends Product implements Serializable {
+public class Apostila extends Produto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private String subject;
     private String educationalInstitution;
     private String professor;
 
-    public CourseMaterial(
+    public Apostila(
             String id,
             String title,
             double price,
@@ -50,7 +52,7 @@ public class CourseMaterial extends Product implements Serializable {
 
     @Override
     public String toString() {
-        return "CourseMaterial{" +
+        return "Apostila{" +
                 super.toString() +
                 ", subject='" + subject + '\'' +
                 ", educationalInstitution='" + educationalInstitution + '\'' +

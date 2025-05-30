@@ -1,15 +1,17 @@
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class Book extends Product implements Serializable {
+public class Livro extends Produto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private String author;
     private String isbn;
     private int publicationYear;
     private String genre;
 
-    public Book(
+    public Livro(
             String id,
             String title,
             double price,
@@ -61,7 +63,7 @@ public class Book extends Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Livro{" +
                 super.toString() +
                 ", author='" + author + '\'' +
                 ", isbn='" + isbn + '\'' +
